@@ -1,0 +1,16 @@
+<html>
+<head>Test Embedded JavaScript</head>
+<body>
+<% if (results.length) { %>
+<% results.forEach(function(result){ %>
+<ul>
+    <li>ID : <%= result.id %></li>
+    <li>Name : <%= result.name %></li>
+    <li>Address : <%= result.address %></li>
+    <li>Email : <%= result.email %></li>
+    <li>Phone : <%= result.phone %></li>
+</ul>
+<% }) %>
+<% } %>
+</body>
+</html>

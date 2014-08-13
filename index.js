@@ -8,5 +8,6 @@ handle["/customer/new"] = requestHandler.new;
 handle["/customer/all"] = requestHandler.allCustomer;
 handle["/customer"] = requestHandler.getCustomer; /*expecting query parameter here*/
 handle["/customer/add"] = requestHandler.addCustomer
+handle["/customer/errortest"] = requestHandler.error
 
 server.start(route.route, handle);

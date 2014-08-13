@@ -10,8 +10,12 @@ function newCustomer(response) {
     }));
     response.end();
 }
-function addCustomer(response, data) {
-    db.save(data, response);
+function addCustomer(response, customer) {
+    try {
+        db.save(customer, response);
+    } catch (error) {
+        throw error;
+    }
 }
 
 function updateCustomer(data, response) {
@@ -22,12 +26,25 @@ function deleteCustomer(response, data) {
 
 function getAllCustomer(response) {
     var queryString = "select * from customer";
-    db.getInfo(queryString, response);
+    try {
+        db.getInfo(queryString, response);
+    } catch (error) {
+        console.log("worked here in catch .............")
+        throw error;
+    }
 }
 
 function getCustomer(response, data) {
     var queryString = "select * from customer c where c.id = " + data.id;
-    db.getInfo(queryString, response);
+    try {
+        db.getInfo(queryString, response);
+    } catch (error) {
+        throw error;
+    }
+}
+
+function error() {
+    throw {name : "myError", message : "custom error message"};
 }
 
 exports.new = newCustomer;
@@ -36,3 +53,4 @@ exports.updateCustomer = updateCustomer;
 exports.getCustomer = getCustomer;
 exports.allCustomer = getAllCustomer;
 exports.deleteCustomer = deleteCustomer;
+exports.error = error;

@@ -2,11 +2,34 @@
 <head>Customer Input example</head>
 <body>
 <form action="/customer/add" method="POST">
-    Name: <input name="name" type="text" />
-    Address: <input name="address" type="text" />
-    Email: <input name="email" type="text" />
-    Phone: <input name="phone" type="text" />
-    <button type="submit">Post Data</button>
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input name="name" type="text" value="<%= customer.name ? customer.name : ''%>"/></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td><input name="address" type="text" value="<%= customer.address ? customer.address : '' %>"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>
+                <input name="email" type="text" value="<%= customer.email ? customer.email : '' %>"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone:
+            </td>
+            <td>
+                <input name="phone" type="text" value="<%= customer.phone ? customer.phone : '' %>"/>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button type="submit">Post Data</button></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

@@ -32,14 +32,6 @@ function start(route, handle) {
             response.writeHead(500, {"Content-Type": "text/plain"});
             response.write(JSON.stringify(error.message));
             response.end();
-        } finally {
-            console.log("worked here in finally..................");
-            request.on('error', function (error) {
-                console.log("worked here on error event................")
-                response.writeHead(500, {"Content-Type": "text/plain"});
-                response.write(Error.message);
-                response.end();
-            });
         }
     }
 

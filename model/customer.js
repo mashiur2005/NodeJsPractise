@@ -1,8 +1,8 @@
 function Customer(dataObject) {
-    this.name = dataObject.name;
-    this.address = dataObject.address;
-    this.email = dataObject.email;
-    this.phone = dataObject.phone;
+    this.name = dataObject.name || '';
+    this.address = dataObject.address || '';
+    this.email = dataObject.email || '';
+    this.phone = dataObject.phone || '';
 }
 
 Customer.prototype.getCustomer = function() {

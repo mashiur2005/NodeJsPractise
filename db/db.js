@@ -1,7 +1,6 @@
 var mysql = require("mysql");
 var ejs = require("ejs");
 var fs = require("fs");
-var templateStr = fs.readFileSync("./template/list.ejs", "utf8");
 
 var pool = mysql.createPool({
     host: "localhost",
@@ -24,6 +23,7 @@ function getResult(queryString, response) {
                     throw getDbError(err);
                 } else {
                     console.log("Result found after querying is.............. ");
+                    var templateStr = fs.readFileSync("./template/list.ejs", "utf8");
                     var resultTemplate = ejs.render(templateStr, {
                         results: rows
                     });

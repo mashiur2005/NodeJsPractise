@@ -1,12 +1,13 @@
 var db = require("../db/db.js");
 var ejs = require("ejs");
 var fs = require("fs");
+var customer = require("../model/customer");
 
-function newCustomer(response) {
+function newCustomer(response, data) {
     var templateFromStr = fs.readFileSync("./template/form.ejs", "utf8");
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(ejs.render(templateFromStr, {
-        customer : ''
+        customer : data
     }));
     response.end();
 }

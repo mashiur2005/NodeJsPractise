@@ -2,14 +2,25 @@ var db = require("../db/db.js");
 var ejs = require("ejs");
 var fs = require("fs");
 var customer = require("../model/customer");
+var customerRenderComponent = require("../model/CustomerRenderComponents");
 
 function newCustomer(response, data) {
     var templateFromStr = fs.readFileSync("./template/form.ejs", "utf8");
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(ejs.render(templateFromStr, {
-        customer : data
-    }));
-    response.end();
+    if (data.id && data.id !== '') {
+        var customerComponent = new customerRenderComponent.CustomerRenderComponents(response, data, ejs);
+        try {
+            db.getCustomerById(customerComponent);
+        } catch (Error) {
+            throw Error;
+        }
+    } else {
+        response.writeHead(200, {"Content-Type": "text/html"});
+        response.write(ejs.render(templateFromStr, {
+            customer : data,
+            formPostLink : "/customer/add"
+        }));
+        response.end();
+    }
 }
 function addCustomer(response, customer) {
     try {

@@ -57,6 +57,36 @@ function saveResult(data, response) {
     });
 }
 
+function getCustomerById(customerRenderComponent) {
+    var queryString = "select * from customer where id = " + customerRenderComponent.getData().id;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            throw err;
+        }
+
+        try {
+            connection.query(queryString, function (err, rows) {
+                if (err) {
+                    throw getDbError(err);
+                } else {
+                    if (rows[0]) {
+                        var selectedCustomer = rows[0];
+                        var templateStr = fs.readFileSync("./template/form.ejs", "utf8");
+                        var resultTemplate = customerRenderComponent.getEJS().render(templateStr, {
+                            customer: selectedCustomer,
+                            formPostLink : "/customer/update"
+                        });
+                        writeResponse(200, resultTemplate, customerRenderComponent.getResponse());
+                    }
+                }
+            });
+        } finally {
+            connection.release();
+        }
+    });
+}
+
 function getDbError(error) {
     return {name: "DbError", message: error };
 }
@@ -69,3 +99,4 @@ function writeResponse(code, responseString, response) {
 
 exports.getInfo = getResult;
 exports.save = saveResult;
+exports.getCustomerById = getCustomerById;
